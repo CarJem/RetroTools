@@ -46,11 +46,6 @@ namespace RetroTile.Controls
         public SFML.System.Vector2i LastPosition { get; set; } = new SFML.System.Vector2i(0, 0);
         public SFML.System.Vector2f ZoomOffset { get; private set; } = new SFML.System.Vector2f(0, 0);
 
-
-        SFML.Graphics.Font RenderingFont;
-
-        SFML.Graphics.Font RenderingFontBold;
-
         #endregion
 
         #region Built-In Textures
@@ -826,25 +821,6 @@ namespace RetroTile.Controls
             DrawLine(x1, y1, x0, y0, color, thickness);
             DrawLine(x1, y1, x2, y2, color, thickness);
             DrawLine(x1, y1, x3, y3, color, thickness);
-        }
-        public void DrawText(string text, int x, int y, Color color, bool bold, int size = 4)
-        {
-            DrawText(text, x, y, color, bold, size, System.Drawing.Color.Transparent);
-        }
-        public void DrawText(string text, int x, int y, Color color, bool bold, int size, Color bordercolor)
-        {
-            SFML.Graphics.Text textObject = new Text();
-            if (bold) textObject.Font = RenderingFontBold;
-            else textObject.Font = RenderingFont;
-
-            textObject.DisplayedString = text;
-            float zoom = GetZoom();
-            textObject.CharacterSize = (uint)(size * zoom);
-            textObject.OutlineThickness = 1;
-            textObject.OutlineColor = new SFML.Graphics.Color(bordercolor.R, bordercolor.G, bordercolor.B, bordercolor.A);
-            textObject.Position = new SFML.System.Vector2f(x * zoom, y * zoom);
-            textObject.FillColor = new SFML.Graphics.Color(color.R, color.G, color.B, color.A);
-            RenderWindow.Draw(textObject);
         }
 
         #endregion
