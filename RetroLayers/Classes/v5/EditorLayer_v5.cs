@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 using RSDKv5;
 
-namespace RetroLayers.Classes
+namespace RetroLayers.Classes.v5
 {
-    public class EditorLayer
+    public class EditorLayer_v5
     {
         #region RSDKv5 Properties
         private SceneLayer _layer { get; set; }
@@ -55,7 +55,10 @@ namespace RetroLayers.Classes
         }
         public ushort Height { get => _layer.Height; }
         public ushort Width { get => _layer.Width; }
-        public IList<HorizontalLayerScroll> HorizontalLayerRules { get; set; }
+
+        public ushort WorkingHeight { get; set; }
+        public ushort WorkingWidth { get; set; }
+        public IList<HorizontalLayerScroll_v5> HorizontalLayerRules { get; set; }
 
         #endregion
 
@@ -65,20 +68,20 @@ namespace RetroLayers.Classes
 
         #endregion
 
-        public EditorLayer(SceneLayer layer)
+        public EditorLayer_v5(SceneLayer layer)
         {
             _layer = layer;
             HorizontalLayerRules = ReadHorizontalLineRules();
         }
 
 
-        private IList<HorizontalLayerScroll> ReadHorizontalLineRules()
+        private IList<HorizontalLayerScroll_v5> ReadHorizontalLineRules()
         {
-            var tempList = new List<HorizontalLayerScroll>();
+            var tempList = new List<HorizontalLayerScroll_v5>();
             byte generatedId = 0;
             foreach (var scrollInfo in _layer.ScrollingInfo)
             {
-                tempList.Add(new HorizontalLayerScroll(generatedId, scrollInfo));
+                tempList.Add(new HorizontalLayerScroll_v5(generatedId, scrollInfo));
                 ++generatedId;
             }
 
@@ -133,7 +136,7 @@ namespace RetroLayers.Classes
             var info = new ScrollInfo();
 
             _layer.ScrollingInfo.Add(info);
-            var hls = new HorizontalLayerScroll(id, info);
+            var hls = new HorizontalLayerScroll_v5(id, info);
             HorizontalLayerRules.Add(hls);
         }
 
@@ -143,7 +146,7 @@ namespace RetroLayers.Classes
             _layer.Resize(width, height);
         }
 
-        public EditorLayer Clone()
+        public EditorLayer_v5 Clone()
         {
             var cloneLayer = new RSDKv5.SceneLayer(_layer.Name, _layer.Width, _layer.Height);
             cloneLayer.DrawingOrder = _layer.DrawingOrder;
@@ -153,7 +156,7 @@ namespace RetroLayers.Classes
             cloneLayer.ScrollIndexes = _layer.ScrollIndexes;
             cloneLayer.ScrollingInfo = _layer.ScrollingInfo;
             cloneLayer.Tiles = _layer.Tiles;
-            return new EditorLayer(cloneLayer);
+            return new EditorLayer_v5(cloneLayer);
         }
     }
 }

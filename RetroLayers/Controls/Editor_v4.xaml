@@ -1,0 +1,305 @@
+﻿<UserControl x:Class="RetroLayers.Controls.Editor_v4"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:local="clr-namespace:RetroLayers.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="540" d:DesignWidth="1060">
+    <Grid Grid.Row="1" Grid.ColumnSpan="3" x:Name="Editor" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="152"></ColumnDefinition>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="lbLayers" Grid.RowSpan="2" Grid.Row="1" BorderThickness="1" VerticalAlignment="Stretch" Margin="0,0,0,37" SelectionChanged="LbLayers_SelectionChanged" MouseDown="lbLayers_MouseUp" Grid.ColumnSpan="1">
+            <ListBox.ContextMenu>
+                <ContextMenu x:Name="LayerContextMenu">
+                    <MenuItem x:Name="cutBtn" Header="Cut Selected Layer" Click="btnCut_Click"></MenuItem>
+                    <MenuItem Header="Copy Selected Layer" Click="btnCopy_Click"></MenuItem>
+                    <MenuItem Header="Paste Selected Layer" Click="btnPaste_Click"></MenuItem>
+                    <MenuItem Header="Duplicate Selected Layer" Click="btnDuplicate_Click"></MenuItem>
+                    <MenuItem Header="Delete Selected Layer" Click="btnDelete_Click"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Move Selected Up" Click="btnUp_Click"></MenuItem>
+                    <MenuItem Header="Move Selected Down" Click="btnDown_Click"></MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <Border BorderThickness="1" BorderBrush="{Binding ElementName=lbLayers, Path=BorderBrush}"  Grid.Row="2" VerticalAlignment="Bottom" Height="38" Grid.ColumnSpan="1">
+            <StackPanel Orientation="Horizontal" Height="36" HorizontalAlignment="Center">
+                <Button x:Name="btnAdd" Content="+" Background="LightGreen" Width="24" Height="24" Margin="4" Foreground="Black" Click="btnAdd_Click"></Button>
+                <Button x:Name="btnDelete" Content="-" Background="LightCoral" Width="24" Height="24" Margin="4" Foreground="Black" Click="btnDelete_Click"></Button>
+                <Button Content="↑" Width="24" Height="24" Margin="4" Click="btnUp_Click"></Button>
+                <Button Content="↓" Width="24" Height="24" Margin="4" Click="btnDown_Click"></Button>
+            </StackPanel>
+        </Border>
+        <GroupBox x:Name="gbName" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="2" Header="Layer Attributes">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" Text="Behavior:"></TextBlock>
+                            <wpfTool:ByteUpDown x:Name="LayerBehaviorNUD" Height="24" Grid.Column="1"></wpfTool:ByteUpDown>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Relative Speed:" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
+                            <wpfTool:ShortUpDown x:Name="LayerRelativeSpeedNUD" Height="26" Grid.Column="1"></wpfTool:ShortUpDown>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Constant Speed:" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
+                            <wpfTool:ShortUpDown x:Name="LayerConstantSpeedNUD" Height="24" Grid.Column="1"></wpfTool:ShortUpDown>
+                        </Grid>
+                    </StackPanel>
+                    <GroupBox Header="Line Indexes" Margin="5" Grid.Column="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListBox SelectionMode="Extended" SelectionChanged="LayerLineIndexes_SelectionChanged" x:Name="LayerLineIndexes" Grid.RowSpan="3" BorderThickness="1"  VerticalAlignment="Stretch" Margin="0,0,0,37">
+                        </ListBox>
+                        <Border Margin="0,0" Grid.Row="2" BorderThickness="1" BorderBrush="{Binding ElementName=LayerLineIndexes, Path=BorderBrush}" VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal" Height="36" HorizontalAlignment="Center">
+                                <Button Click="AddLineIndexes_Click" Content="+" Background="LightGreen" Width="24" Height="24" Margin="4" Foreground="Black"></Button>
+                                <Button Click="RemoveLineIndexes_Click" Content="-" Background="LightCoral" Width="24" Height="24" Margin="4" Foreground="Black"></Button>
+                                <Button Content="↑" Width="24" Height="24" Margin="4" Click="MoveUpLineIndexes_Click"></Button>
+                                <Button Content="↓" Width="24" Height="24" Margin="4" Click="MoveDownLineIndexes_Click"></Button>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    </GroupBox>
+                </Grid>
+                <GroupBox Grid.Row="1" Header="Current Size">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Height="24" Grid.ColumnSpan="2" Grid.RowSpan="1">
+                            <StackPanel Orientation="Horizontal" Height="30">
+                                <Label Content="Raw:"></Label>
+                                <Label Content="Width:"></Label>
+                                <Label x:Name="lblRawWidthValue" Content="0"></Label>
+                                <Label Content="Height:"></Label>
+                                <Label x:Name="lblRawHeightValue" Content="0"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Height="24" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1">
+                            <StackPanel Orientation="Horizontal" Height="30">
+                                <Label Content="Effective:"></Label>
+                                <Label Content="Width:"></Label>
+                                <Label x:Name="lblEffSizeWidth" Content="0"></Label>
+                                <Label Content="Height:"></Label>
+                                <Label x:Name="lblEffSizeHeight" Content="0"></Label>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="4" Header="Resize">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="5,5" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock VerticalAlignment="Center" Text="Width"></TextBlock>
+                                    <wpfTool:UShortUpDown Height="24" ValueChanged="DesiredSizeChanged" Grid.Column="1" x:Name="nudWidth"></wpfTool:UShortUpDown>
+                                </Grid>
+                                <Grid Margin="5,5" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock VerticalAlignment="Center" Text="Height"></TextBlock>
+                                    <wpfTool:UShortUpDown Height="24" ValueChanged="DesiredSizeChanged" Grid.Column="1" x:Name="nudHeight"></wpfTool:UShortUpDown>
+                                </Grid>
+                            </Grid>
+                            <TextBlock x:Name="lblResizedEffective" Text="Effective Resize:" Margin="5,5"></TextBlock>
+                            <TextBlock Margin="5,5" Text="It is recommended to keep any Foreground layers (normally named FG Low and FG High) the same size." TextWrapping="WrapWithOverflow"></TextBlock>
+                        </StackPanel>
+                        <Button Click="btnResize_Click" x:Name="btnResize" Grid.Row="1" Content="Resize Layer"></Button>
+                    </Grid>
+                </GroupBox>
+
+                <Grid Margin="5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Horizontal Rules">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ListBox SelectionMode="Extended" SelectionChanged="LbHorizontalRules_SelectionChanged" x:Name="lbHorizontalRules" Grid.RowSpan="3" BorderThickness="1"  VerticalAlignment="Stretch" Margin="0,0,0,37">
+                            </ListBox>
+                            <Border Margin="0,0" Grid.Row="2" BorderThickness="1" BorderBrush="{Binding ElementName=lbHorizontalRules, Path=BorderBrush}" VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Horizontal" Height="36" HorizontalAlignment="Center">
+                                    <Button Click="btnAddHorizontalRule_Click" Content="+" Background="LightGreen" Width="24" Height="24" Margin="4" Foreground="Black"></Button>
+                                    <Button Click="btnRemoveHorizontalRule_Click" Content="-" Background="LightCoral" Width="24" Height="24" Margin="4" Foreground="Black"></Button>
+                                    <Button Content="↑" Width="24" Height="24" Margin="4" Click="btnUpRules_Click"></Button>
+                                    <Button Content="↓" Width="24" Height="24" Margin="4" Click="btnDownRules_Click"></Button>
+                                </StackPanel>
+                            </Border>
+                            <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Center">
+                                    <Grid Margin="5,5,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock VerticalAlignment="Center" Text="Behavior:"></TextBlock>
+                                        <wpfTool:ByteUpDown x:Name="HorizontalBehaviorNUD" Height="24" Grid.Column="1"></wpfTool:ByteUpDown>
+                                    </Grid>
+                                    <Grid Margin="5,0,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Relative Speed:" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
+                                        <wpfTool:ShortUpDown x:Name="HorizontalRelativeSpeedNUD" Height="26" Grid.Column="1"></wpfTool:ShortUpDown>
+                                    </Grid>
+                                    <Grid Margin="5,0,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock VerticalAlignment="Center" Text="Constant Speed:" TextWrapping="WrapWithOverflow"></TextBlock>
+                                        <wpfTool:ShortUpDown x:Name="HorizontalConstantSpeedNUD" Height="26" Grid.Column="1"></wpfTool:ShortUpDown>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1" Header="Vertical Rules">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ListBox SelectionMode="Extended" SelectionChanged="lbVerticalRules_SelectionChanged" x:Name="lbVerticalRules" Grid.RowSpan="3" BorderThickness="1"  VerticalAlignment="Stretch" Margin="0,0,0,37">
+                            </ListBox>
+                            <Border Margin="0,0" Grid.Row="2" BorderThickness="1" BorderBrush="{Binding ElementName=lbVerticalRules, Path=BorderBrush}" VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Horizontal" Height="36" HorizontalAlignment="Center">
+                                    <Button Click="btnAddVerticalRule_Click" Content="+" Background="LightGreen" Width="24" Height="24" Margin="4" Foreground="Black"></Button>
+                                    <Button Click="btnRemoveVerticalRule_Click" Content="-" Background="LightCoral" Width="24" Height="24" Margin="4" Foreground="Black"></Button>
+                                    <Button Content="↑" Width="24" Height="24" Margin="4" Click="btnUpVertRules_Click"></Button>
+                                    <Button Content="↓" Width="24" Height="24" Margin="4" Click="btnDownVertRules_Click"></Button>
+                                </StackPanel>
+                            </Border>
+                            <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Center">
+                                    <Grid Margin="5,5,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock VerticalAlignment="Center" Text="Behavior:"></TextBlock>
+                                        <wpfTool:ByteUpDown x:Name="VerticalBehaviorNUD" Height="24" Grid.Column="1"></wpfTool:ByteUpDown>
+                                    </Grid>
+                                    <Grid Margin="5,0,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Relative Speed:" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
+                                        <wpfTool:ShortUpDown x:Name="VerticalRelativeSpeedNUD" Height="26" Grid.Column="1"></wpfTool:ShortUpDown>
+                                    </Grid>
+                                    <Grid Margin="5,0,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock VerticalAlignment="Center" Text="Constant Speed:" TextWrapping="WrapWithOverflow"></TextBlock>
+                                        <wpfTool:ShortUpDown x:Name="VerticalConstantSpeedNUD" Height="26" Grid.Column="1"></wpfTool:ShortUpDown>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

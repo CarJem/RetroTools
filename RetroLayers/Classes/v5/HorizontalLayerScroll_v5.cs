@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using RSDKv5;
-namespace RetroLayers.Classes
+namespace RetroLayers.Classes.v5
 {
     /// <summary>
     /// Defines the horizontal scrolling behaviour of a set of potentially non-contiguous lines.
     /// </summary>
-    public class HorizontalLayerScroll
+    public class HorizontalLayerScroll_v5
     {
         private byte _id;
         private ScrollInfo _scrollInfo;
-        private IList<ScrollInfoLines> _linesMapList;
+        private IList<ScrollInfoLines_v5> _linesMapList;
 
         /// <summary>
         /// Creates a new scrolling behaviour rule, but not yet applied to any lines.
         /// </summary>
         /// <param name="id">Internal identifer to use for display purposes</param>
         /// <param name="info">The rules governing the scrolling behaviour</param>
-        public HorizontalLayerScroll(byte id, ScrollInfo info)
-            : this(id, info, new List<ScrollInfoLines>())
+        public HorizontalLayerScroll_v5(byte id, ScrollInfo info)
+            : this(id, info, new List<ScrollInfoLines_v5>())
         {
         }
 
@@ -28,7 +28,7 @@ namespace RetroLayers.Classes
         /// <param name="id">Internal identifer to use for display purposes</param>
         /// <param name="info">The rules governing the scrolling behaviour</param>
         /// <param name="linesMap">Set of line level mappings which define the lines the rules apply to</param>
-        public HorizontalLayerScroll(byte id, ScrollInfo info, IList<ScrollInfoLines> linesMap)
+        public HorizontalLayerScroll_v5(byte id, ScrollInfo info, IList<ScrollInfoLines_v5> linesMap)
         {
             _id = id;
             _scrollInfo = info;
@@ -51,7 +51,7 @@ namespace RetroLayers.Classes
         public short RelativeSpeed { get => _scrollInfo.RelativeSpeed; set => _scrollInfo.RelativeSpeed = value; }
         public short ConstantSpeed { get => _scrollInfo.ConstantSpeed; set => _scrollInfo.ConstantSpeed = value; }
 
-        public IList<ScrollInfoLines> LinesMapList { get => _linesMapList; set => _linesMapList = value; }
+        public IList<ScrollInfoLines_v5> LinesMapList { get => _linesMapList; set => _linesMapList = value; }
         public ScrollInfo ScrollInfo { get => _scrollInfo; }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace RetroLayers.Classes
         /// <param name="lineCount">The number of contiguous lines to which the rules apply</param>
         public void AddMapping(int startLine, int lineCount)
         {
-            _linesMapList.Add(new ScrollInfoLines(startLine, lineCount));
+            _linesMapList.Add(new ScrollInfoLines_v5(startLine, lineCount));
         }
 
         /// <summary>

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RetroLayers.Classes
+namespace RetroLayers.Classes.v5
 {
     /// <summary>
     /// Defines the lines to which a ScrollInfo set of horizontal scrolling rules, applies.
     /// </summary>
-    public class ScrollInfoLines
+    public class ScrollInfoLines_v5
     {
         private int _startIndex;
         private int _lineCount;
@@ -17,7 +17,7 @@ namespace RetroLayers.Classes
         /// </summary>
         /// <param name="startIndex">The line at which any rules start to apply.</param>
         /// <param name="lineCount">The number of lines to which this applies.</param>
-        public ScrollInfoLines(int startIndex, int lineCount)
+        public ScrollInfoLines_v5(int startIndex, int lineCount)
         {
             _startIndex = startIndex;
             _lineCount = lineCount;

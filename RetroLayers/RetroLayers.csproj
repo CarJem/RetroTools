@@ -71,6 +71,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\Editor_v4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Editor_v5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\LayerManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,10 +86,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\EditorLayer.cs" />
-    <Compile Include="Classes\EditorScene.cs" />
-    <Compile Include="Classes\HorizontalLayerScroll.cs" />
-    <Compile Include="Classes\ScrollInfoLines.cs" />
+    <Compile Include="Classes\v4\EditorClass_v4.cs" />
+    <Compile Include="Classes\v4\EditorLayer_v4.cs" />
+    <Compile Include="Classes\v4\ScrollInfo_v4.cs" />
+    <Compile Include="Classes\v5\EditorClass_v5.cs" />
+    <Compile Include="Classes\v5\EditorLayer_v5.cs" />
+    <Compile Include="Classes\IEditorClass.cs" />
+    <Compile Include="Classes\v5\HorizontalLayerScroll_v5.cs" />
+    <Compile Include="Classes\v5\ScrollInfoLines_v5.cs" />
+    <Compile Include="Controls\Editor_v4.xaml.cs">
+      <DependentUpon>Editor_v4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Editor_v5.xaml.cs">
+      <DependentUpon>Editor_v5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IEditor.cs" />
     <Compile Include="Controls\LayerManager.xaml.cs">
       <DependentUpon>LayerManager.xaml</DependentUpon>
     </Compile>
@@ -118,6 +137,10 @@
     <ProjectReference Include="..\RSDK-Reverse\RSDKv5\RSDKv5.csproj">
       <Project>{cf5496f8-002b-408f-9b3d-67c88f610283}</Project>
       <Name>RSDKv5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSDK-Reverse\RSDKvB\RSDKvB.csproj">
+      <Project>{1a58ba31-c9e1-4d18-876e-ec73799e7a9f}</Project>
+      <Name>RSDKvB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
